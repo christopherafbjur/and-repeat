@@ -1,21 +1,21 @@
-import express from 'express';
+import express, {Application, Request, Response} from 'express';
 
-const PORT = 5000;
-const app = express();
+const PORT: number = 5000;
+const app: Application = express();
 
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
   res.send('GET');
 });
 
-app.post('/', (req, res) => {
+app.post('/', (req: Request, res: Response) => {
   res.send('POST');
 });
 
-app.put('/', (req, res) => {
+app.put('/', (req: Request, res: Response) => {
   res.send('PUT');
 });
 
-app.delete('/', (req, res) => {
+app.delete('/', (req: Request, res: Response) => {
   res.send('DELETE');
 });
 
