@@ -7,3 +7,8 @@ export interface MessageResponse {
     text: string
   }[]
 }
+
+export interface MessageBody {
+  title: string;
+  text: string;
+}

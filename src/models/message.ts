@@ -1,5 +1,6 @@
 import db from '../services/database';
-import {MessageResponse, MessageBody} from './message.types'
+import {MessageResponse} from './message.types'
+import {MessageBody} from '../types'
 
 const Model = function(){}
 
@@ -51,8 +52,8 @@ Model.updateMessage = function(id: string, body: MessageBody): Promise<MessageRe
 }
 
 Model.deleteMessage = function(id: string): Promise<MessageResponse>{
-  const query = `DELETE FROM messages WHERE id = $1 RETURNING *`;
-  const values = [id]
+  const query: string = `DELETE FROM messages WHERE id = $1 RETURNING *`;
+  const values: string[] = [id]
   
   return new Promise((resolve, reject) => {
     db.query(query, values, (err, result) => {
