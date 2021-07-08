@@ -56,7 +56,6 @@ Model.deleteMessage = function(id: string): Promise<MessageResponse>{
     db.query(query, values, (err, result) => {
       if (err) throw reject(err);
       
-      if(!result.rows.length) resolve({status: 404, message: 'Id not found', data: []})
       resolve({status: 200, data: result.rows})
     });
   })
