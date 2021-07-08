@@ -5,33 +5,9 @@ const router = express.Router();
 
 router.get('/', controller.get_all_messages);
 router.post('/', controller.add_message);
-
-
-router.put('/', (req: Request, res: Response) => {
-  res.send('You need to provide an id as query parameter.')
-})
-router.put('/:id', (req: Request, res: Response) => {
-  console.log(req.params.id)
-  
-
-  
-});
-
-router.delete('/', (req: Request, res: Response) => {
-  res.send('You need to provide an id as query parameter.')
-})
-router.delete('/:id', (req: Request, res: Response) => {
-  const query = `DELETE FROM messages WHERE id = $1 RETURNING *`;
-  const values = [req.params.id]
-
-  if(!req.params.id) return res.send({message: 'No id specified'})
-  
-  db.query(query, values, (err, result) => {
-    if (err) throw err;
-    
-    if(!result.rows.length) res.send({message: 'Id not found'})
-    res.status(200).send(result.rows[0]);
-  });
-});
+router.put('/', controller.update_message_by_id)
+router.put('/:id', controller.update_message_by_id);
+router.delete('/', controller.delete_message_by_id)
+router.delete('/:id', controller.delete_message_by_id);
 
 export default router;
