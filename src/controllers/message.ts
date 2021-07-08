@@ -26,7 +26,7 @@ export async function update_message_by_id(req: Request, res: Response){
   const body: MessageBody = {title: req.body.title, text: req.body.text};
 
   if(!req.params.id) return res.send({status: 400, message: 'Missing id'});
-  if(!body.title || !body.text) return res.send({status: 400, message: 'Missing update data'});
+  if(!body.title && !body.text) return res.send({status: 400, message: 'Missing update data'});
 
   try {
     const {status, data} = await model.updateMessage(req.params.id, body);

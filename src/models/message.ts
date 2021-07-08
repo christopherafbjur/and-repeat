@@ -35,10 +35,7 @@ Model.addMessage = function(data: MessageBody): Promise<MessageResponse>{
 
 
 Model.updateMessage = function(id: string, body: MessageBody): Promise<MessageResponse>{
-  var query = buildUpdateQuery(id, body);
-  var values = (Object.keys(body) as Array<keyof typeof body>).map(function (key) {
-    return body[key];
-  });
+  var {query, values} = buildUpdateQuery(id, body);
   
   return new Promise((resolve, reject) => {
     db.query(query, values, (err, result) => {
@@ -65,17 +62,22 @@ Model.deleteMessage = function(id: string): Promise<MessageResponse>{
   })
 }
 
-function buildUpdateQuery (id: string, cols: MessageBody): string {
-  var query = ['UPDATE messages', 'SET'];
+function buildUpdateQuery (id: string, cols: MessageBody): {query: string, values: string[]} {
+  const query = ['UPDATE messages', 'SET'];
+  const values: string[] = [];
+  let set: any = [];
+  let index: number = 0;
 
-  var set: any = [];
-  Object.keys(cols).forEach(function (key, i) {
-    set.push(key + ' = ($' + (i + 1) + ')'); 
+
+  (Object.keys(cols) as Array<keyof typeof cols>).forEach(function (key) {
+    if(!cols[key]) return delete cols[key];
+    set.push(key + ' = ($' + (++index) + ')');
+    values.push(cols[key]);
   });
   query.push(set.join(', '));
   query.push('WHERE id = ' + id );
   query.push('RETURNING id, title, text')
-  return query.join(' ');
+  return {query: query.join(' '), values};
 }
 
 
