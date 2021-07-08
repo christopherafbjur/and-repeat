@@ -10,7 +10,7 @@
     "build": "tsc -p ."
   },
   "keywords": [],
-  "author": "",
+  "author": "Christopher Af Bjur",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",

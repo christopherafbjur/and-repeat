@@ -9,7 +9,7 @@ const app: Application = express();
 app.use(helmet())
 app.use(express.json());
 app.use(errorHandler)
-app.use('/', messages)
+app.use('/api', messages)
 
 
 app.listen(PORT, () => console.log(`Server running on ${PORT}.`));
