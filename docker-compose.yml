@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  api:
+    build: ./
+    ports:
+      - 5000:5000
+    image: andrepeat_api:1
+    environment:
+      DATABASE_URL: postgres://postgres:changethispw@db:5432/ardb
+    volumes:
+      - ./:/app
+    command: ['sh', './docker-entrypoint.sh']
+  db:
+    image: postgres:13.3-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: changethispw
+      POSTGRES_DB: ardb
+    restart: unless-stopped
