@@ -6,5 +6,8 @@ echo "Waiting for Postgres database to start..."
 echo "Migrating the database..."
 npm run migrate up
 
-echo "Starting the development server..."
-npm run dev 
+echo "Compiling build..."
+npm run build
+
+echo "Starting the server..."
+npm run start

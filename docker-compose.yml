@@ -7,8 +7,6 @@ services:
     image: andrepeat_api:1
     environment:
       DATABASE_URL: postgres://postgres:changethispw@db:5432/ardb
-    volumes:
-      - ./:/app
     command: ['sh', './docker-entrypoint.sh']
   db:
     image: postgres:13.3-alpine
