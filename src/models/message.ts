@@ -1,6 +1,5 @@
 import db from '../services/database';
-import {MessageResponse} from './message.types'
-import {MessageBody} from '../types'
+import {MessageBody, MessageResponse} from '../types'
 
 const Model = function(){}
 
@@ -9,7 +8,7 @@ Model.getAllMessages = function(): Promise<MessageResponse>{
 
   return new Promise((resolve, reject) => {
     db.query(query, function (err, result) {
-      if (err) throw reject(err);
+      if (err) reject(err);
       resolve({
         status: 200,
         data: result.rows
@@ -24,7 +23,7 @@ Model.addMessage = function(data: MessageBody): Promise<MessageResponse>{
 
   return new Promise((resolve, reject) => {
     db.query(query, values, (err, result) => {
-      if (err) throw reject(err);
+      if (err) reject(err);
       resolve({
         status: 200,
         data: result.rows
@@ -39,7 +38,7 @@ Model.updateMessage = function(id: string, body: MessageBody): Promise<MessageRe
   
   return new Promise((resolve, reject) => {
     db.query(query, values, (err, result) => {
-      if (err) throw reject(err);
+      if (err) reject(err);
       resolve({
         status: 200,
         data: result.rows
@@ -54,8 +53,7 @@ Model.deleteMessage = function(id: string): Promise<MessageResponse>{
   
   return new Promise((resolve, reject) => {
     db.query(query, values, (err, result) => {
-      if (err) throw reject(err);
-      
+      if (err) reject(err);
       resolve({status: 200, data: result.rows})
     });
   })
